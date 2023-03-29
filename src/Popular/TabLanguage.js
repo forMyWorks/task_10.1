@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
-import { setSearchParamsAction } from "../redux/popular/popular.actions";
-import { setLoadingAction } from "../redux/popular/popular.actions";
-import { setReposAction } from "../redux/popular/popular.actions";
-import { setReposCopyAction } from "../redux/popular/popular.actions";
-import { setErrorAction } from "../redux/popular/popular.actions";
+import { setSearchParamsAction } from "../redux/popular/popular.slice";
+import { setLoadingAction } from "../redux/popular/popular.slice";
+import { setReposAction } from "../redux/popular/popular.slice";
+import { setReposCopyAction } from "../redux/popular/popular.slice";
+import { setErrorAction } from "../redux/popular/popular.slice";
 
 import { fetchPopularRepos } from "../api";
 import List from "./List";
@@ -21,13 +21,11 @@ const lowerTabsLanguage = tabsLanguage.map((item) => {
 // eslint-disable-next-line
 export default () => {
   const dispatch = useDispatch();
-  const searchParams = useSelector(
-    (state) => state.popularReducer.searchParams
-  );
-  const reposFilter = useSelector((state) => state.popularReducer.reposFilter);
-  const loading = useSelector((state) => state.popularReducer.loading);
-  const repos = useSelector((state) => state.popularReducer.repos);
-  const error = useSelector((state) => state.popularReducer.error);
+  const searchParams = useSelector((state) => state.searchParams);
+  const reposFilter = useSelector((state) => state.reposFilter);
+  const loading = useSelector((state) => state.loading);
+  const repos = useSelector((state) => state.repos);
+  const error = useSelector((state) => state.error);
 
   useEffect(() => {
     dispatch(setLoadingAction(true));

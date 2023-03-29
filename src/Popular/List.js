@@ -2,7 +2,7 @@ import { memo } from "react";
 import { useSelector } from "react-redux";
 
 const List = memo(() => {
-  const reposCopy = useSelector((state) => state.popularReducer.reposCopy);
+  const reposCopy = useSelector((state) => state.reposCopy);
   return (
     <ul className="popular-list">
       {reposCopy.map((repo, index) => {
