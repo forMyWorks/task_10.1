@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import reducer from "./popular/popular.slice";
+import reducer from "./popular/popular-slice.ts";
 
 const store = configureStore({
   reducer,

@@ -1,11 +1,18 @@
+import React from "react";
 import { memo } from "react";
 import { useSelector } from "react-redux";
 
-const List = memo(() => {
-  const reposCopy = useSelector((state) => state.reposCopy);
+import { IInitialState } from "../redux/popular/popular-slice";
+
+interface IRrepo {
+  [key: string]: any;
+}
+
+const List = memo((): JSX.Element => {
+  const reposCopy = useSelector((state: IInitialState) => state.reposCopy);
   return (
     <ul className="popular-list">
-      {reposCopy.map((repo, index) => {
+      {reposCopy.map((repo: IRrepo, index: number) => {
         return (
           <li key={repo.name} className="popular-item">
             <div className="popular-rank">#{index + 1}</div>

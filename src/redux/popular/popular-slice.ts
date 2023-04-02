@@ -1,13 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+export interface IInitialState {
+  searchParams: string;
+  reposFilter: string;
+  repos: any[];
+  reposCopy: any[];
+  loading: boolean;
+  error: any;
+  timeout: string;
+  inputValue: string;
+}
+
+const initialState: IInitialState = {
   searchParams: "all",
   reposFilter: "",
   repos: [],
   reposCopy: [],
   loading: true,
   error: null,
-  timeout: null,
+  timeout: "",
   inputValue: "",
 };
 

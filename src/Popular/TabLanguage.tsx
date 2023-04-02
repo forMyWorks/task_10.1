@@ -1,17 +1,21 @@
+import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
-import { setSearchParamsAction } from "../redux/popular/popular.slice";
-import { setLoadingAction } from "../redux/popular/popular.slice";
-import { setReposAction } from "../redux/popular/popular.slice";
-import { setReposCopyAction } from "../redux/popular/popular.slice";
-import { setErrorAction } from "../redux/popular/popular.slice";
+import { setSearchParamsAction } from "../redux/popular/popular-slice";
+import { setLoadingAction } from "../redux/popular/popular-slice";
+import { setReposAction } from "../redux/popular/popular-slice";
+import { setReposCopyAction } from "../redux/popular/popular-slice";
+import { setErrorAction } from "../redux/popular/popular-slice";
 
 import { fetchPopularRepos } from "../api";
+
 import List from "./List";
 import Search from "./Search";
+
+import { IInitialState } from "../redux/popular/popular-slice";
 
 const tabsLanguage = ["All", "Javascript", "Ruby", "Java", "CSS", "Python"];
 const lowerTabsLanguage = tabsLanguage.map((item) => {
@@ -21,11 +25,15 @@ const lowerTabsLanguage = tabsLanguage.map((item) => {
 // eslint-disable-next-line
 export default () => {
   const dispatch = useDispatch();
-  const searchParams = useSelector((state) => state.searchParams);
-  const reposFilter = useSelector((state) => state.reposFilter);
-  const loading = useSelector((state) => state.loading);
-  const repos = useSelector((state) => state.repos);
-  const error = useSelector((state) => state.error);
+  const searchParams: string = useSelector(
+    (state: IInitialState) => state.searchParams
+  );
+  const reposFilter: string = useSelector(
+    (state: IInitialState) => state.reposFilter
+  );
+  const loading: boolean = useSelector((state: IInitialState) => state.loading);
+  const repos = useSelector((state: IInitialState) => state.repos);
+  const error = useSelector((state: IInitialState) => state.error);
 
   useEffect(() => {
     dispatch(setLoadingAction(true));
@@ -42,7 +50,7 @@ export default () => {
     searchEmp(reposFilter, repos);
   }, [reposFilter]);
 
-  function handleSubmit(event) {
+  function handleSubmit(event: any) {
     event.preventDefault();
     dispatch(setSearchParamsAction(event.target.textContent.toLowerCase()));
   }
@@ -52,14 +60,14 @@ export default () => {
       ? lowerTabsLanguage.indexOf(searchParams)
       : null;
 
-  const searchEmp = (searchStr, dataFilter) => {
+  const searchEmp = (searchStr: any, dataFilter: any[]) => {
     if (searchStr.length <= 0) {
       dispatch(setReposCopyAction(repos));
       return;
     }
     dispatch(
       setReposCopyAction(
-        dataFilter.filter((item) => {
+        dataFilter.filter((item: any) => {
           return item.name.toLowerCase().indexOf(searchStr) !== -1;
         })
       )
